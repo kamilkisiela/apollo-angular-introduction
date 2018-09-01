@@ -2,6 +2,8 @@ import { Component, Input } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 
+import { Mutation, Variables } from './types';
+
 @Component({
   selector: 'app-upvoter',
   template: `
@@ -16,7 +18,7 @@ export class UpvoterComponent {
   constructor(private apollo: Apollo) {}
 
   upvote() {
-    this.apollo.mutate({
+    this.apollo.mutate<Mutation, Variables>({
       mutation: gql`
         mutation upvotePost($postId: Int!) {
           upvotePost(postId: $postId) {

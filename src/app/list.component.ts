@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import gql from 'graphql-tag';
 
+import { Post, Query } from './types';
+
 @Component({
   selector: 'app-list',
   template: `
@@ -17,12 +19,12 @@ import gql from 'graphql-tag';
   `
 })
 export class ListComponent implements OnInit {
-  posts: Observable<any[]>;
+  posts: Observable<Post[]>;
 
   constructor(private apollo: Apollo) {}
 
   ngOnInit() {
-    this.posts = this.apollo.watchQuery<any>({
+    this.posts = this.apollo.watchQuery<Query>({
       query: gql`
         query allPosts {
           posts {
