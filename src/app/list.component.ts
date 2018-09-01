@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Apollo } from 'apollo-angular';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import gql from 'graphql-tag';
 
 @Component({
   selector: 'app-list',
@@ -16,7 +19,27 @@ import { Observable } from 'rxjs';
 export class ListComponent implements OnInit {
   posts: Observable<any[]>;
 
+  constructor(private apollo: Apollo) {}
+
   ngOnInit() {
-    //
+    this.posts = this.apollo.query<any>({
+      query: gql`
+        query allPosts {
+          posts {
+            id
+            title
+            votes
+            author {
+              id
+              firstName
+              lastName
+            }
+          }
+        }
+      `
+    })
+      .pipe(
+        map(result => result.data.posts)
+      );
   }
 }
