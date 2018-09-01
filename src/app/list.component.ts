@@ -22,7 +22,7 @@ export class ListComponent implements OnInit {
   constructor(private apollo: Apollo) {}
 
   ngOnInit() {
-    this.posts = this.apollo.query<any>({
+    this.posts = this.apollo.watchQuery<any>({
       query: gql`
         query allPosts {
           posts {
@@ -38,6 +38,7 @@ export class ListComponent implements OnInit {
         }
       `
     })
+      .valueChanges
       .pipe(
         map(result => result.data.posts)
       );
