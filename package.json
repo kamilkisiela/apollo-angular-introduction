@@ -7,7 +7,8 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "graphql": "gql-gen --schema https://simple-posts-authors-graphql.glitch.me --template graphql-codegen-apollo-angular-template --out src/app/generated/graphql.ts src/app/graphql/*.graphql"
   },
   "private": true,
   "dependencies": {
